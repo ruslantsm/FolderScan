@@ -1,0 +1,96 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.pager {
+  display: inline-block;
+  padding-left: 0;
+  margin: 20px 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pager > a {
+  display: inline;
+}
+
+.pager > a,
+.pager > span {
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  margin-left: -1px;
+  line-height: 1.428571429;
+  text-decoration: none;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+}
+
+.pager > .disabled{
+  color: #999999;
+  cursor: not-allowed;
+  background-color: #ffffff;
+  border-color: #dddddd;
+}
+
+.top-container {
+		margin-top: 40px;
+	}
+
+	.row {
+		padding: 7px;
+		border-bottom: 1px solid lightgray;
+	}
+
+	.files {
+		margin-left: 20px;
+	}
+
+	.files-row {
+		background: #c2effb;
+	}
+
+	.occ {
+		padding-left: 40px;
+		max-height: 200px;
+		overflow-x: hidden;
+		overflow-y: auto;
+		margin-right: -15px;
+	}
+
+	.occ-row {
+		background: #eeeef2;
+	}
+
+	.header {
+		font-weight: bold;
+	}
+
+	.expandable {
+		cursor: pointer;
+	}
+
+	.fcount {
+		margin-left: -10px;
+	}

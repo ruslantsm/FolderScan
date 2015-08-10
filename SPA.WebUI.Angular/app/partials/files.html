@@ -1,0 +1,22 @@
+﻿
+<div class="row">
+	<ul class="nav nav-tabs">
+		<li role="presentation" class="active"><a href="#/app/files">Files</a></li>
+		<li role="presentation"><a href="#/app/words">Words</a></li>
+	</ul>
+
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<table ng-table="tableParams" class="table table-hover" show-filter="true">
+				<tr class="gradeX" ng-repeat="file in $data">
+					<td data-title="'Name'" sortable="'Name'" filter="{ 'Name': 'text' }">{{file.Name}}</td>
+					<td data-title="'File location'" sortable="'Path'" filter="{ 'Path': 'text' }">{{file.Path}}</td>
+					<td data-title="'Word count'" sortable="'Words'" filter="{ 'Words': 'text' }" class="col-md-2">{{file.Words}}</td>
+					<td data-title="'Action'">
+						<div class="fa fa-bar-chart fa-1x pointer" ng-click="filewords($event, file.id)"></div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

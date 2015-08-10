@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html ng-app="folderScanApp">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<base href="/">
+	<title>@ViewBag.Title</title>
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+	<script src="~/Scripts/angular.js"></script>
+	<script src="~/Scripts/angular-route.js"></script>
+	<script src="~/Scripts/ngtable/ng-table.js"></script>
+	<link href="~/Scripts/ngtable/ng-table.css" rel="stylesheet" />
+	<script src="~/Scripts/loadingbar/loading-bar.js"></script>
+	<link href="~/Scripts/loadingbar/loading-bar.css" rel="stylesheet" />
+
+	<script src="~/app/app.js"></script>
+	<script src="~/app/controllers/filesCtrl.js"></script>
+	<script src="~/app/controllers/wordsCtrl.js"></script>
+	<script src="~/app/servicies/dataService.js"></script>
+</head>
+<body>
+	<div class="container body-content">
+		@RenderBody()
+	</div>
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+	@RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,13 @@
+﻿@model List<WebUI.MVC.Models.OccurenceModel>
+
+<div class="occ">
+	@for (var idx = 0; idx < Model.Count(); idx++)
+	{
+		<div class="row occ-row">
+			<div class="col-sm-6">@Model[idx].FileName</div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-2">@Model[idx].Line</div>
+			<div class="col-sm-2">@Model[idx].Index</div>
+		</div>
+	}
+</div>

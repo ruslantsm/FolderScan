@@ -1,0 +1,40 @@
+﻿
+<div class="row">
+	<ul class="nav nav-tabs">
+		<li role="presentation"><a href="#/app/files">Files</a></li>
+		<li role="presentation" class="active"><a href="#/app/words">Words</a></li>
+	</ul>
+
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="col col-sm-5">
+				<table ng-table="tableParams" class="table table-hover" show-filter="true">
+					<tr class="gradeX pointer" ng-repeat="word in $data" ng-click="select(word)">
+						<td data-title="'Word'" sortable="'Name'" filter="{ 'Name': 'text' }">{{word.Name}}</td>
+						<td data-title="'Count'" class="col-sm-1">{{word.Count}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col col-sm-7">
+				<table ng-table="occurencesTableParams" class="table table-hover" show-filter="true">
+					<tr class="gradeX" ng-repeat="occ in $data">
+						<td data-title="'File Name'" sortable="'FileName'" filter="{ 'FileName': 'text' }">{{occ.FileName}}</td>
+						<td data-title="'Line'" sortable="'Line'" class="col-md-2">{{occ.Line}}</td>
+						<td data-title="'Index'" sortable="'Index'" class="col-md-2">{{occ.Index}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="panel-body" ng-show="groups.length > 0">
+			<div class="col col-sm-5">
+				<table ng-table="groupTableParams" class="table table-hover" show-filter="true">
+					<tr class="gradeX" ng-repeat="group in $data">
+						<td data-title="'File Name'" sortable="'FileName'" filter="{ 'FileName': 'text' }">{{group.FileName}}</td>
+						<td data-title="'Count'" sortable="'Count'" class="col-md-2">{{group.Count}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,19 @@
+﻿@model WebUI.MVC.Models.WordInfoModel
+
+
+<div class="files">
+	@for (var idx = 0; idx < Model.FilesInfo.Count(); idx++)
+	{
+
+		<div class="row nest files-row expandable hide @Model.Name " onclick="showSub('@(Model.Name + Model.FilesInfo[idx].FileId)')">
+			<div class="col-sm-6">@Model.FilesInfo[idx].FileName</div>
+			<div class="col-sm-2 fcount">@Model.FilesInfo[idx].Count</div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-2"></div>
+		</div>
+
+		<div class="sub hide @(Model.Name + Model.FilesInfo[idx].FileId)">
+			@Html.Partial("_OccurenceModel", Model.Occurences.Where(x => x.FileName == Model.FilesInfo[idx].FileName).ToList())
+		</div>
+	}
+</div>

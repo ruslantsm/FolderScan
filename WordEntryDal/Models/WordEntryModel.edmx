@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FolderScanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Word">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WordEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileId" Type="int" Nullable="false" />
+          <Property Name="WordId" Type="int" Nullable="false" />
+          <Property Name="WordIndex" Type="int" Nullable="false" />
+          <Property Name="WordLine" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_WordEntry_File">
+          <End Role="File" Type="Self.File" Multiplicity="1" />
+          <End Role="WordEntry" Type="Self.WordEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WordEntry">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WordEntry_Word">
+          <End Role="Word" Type="Self.Word" Multiplicity="1" />
+          <End Role="WordEntry" Type="Self.WordEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Word">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WordEntry">
+              <PropertyRef Name="WordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FolderScanModelStoreContainer">
+          <EntitySet Name="File" EntityType="Self.File" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Word" EntityType="Self.Word" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WordEntry" EntityType="Self.WordEntry" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_WordEntry_File" Association="Self.FK_WordEntry_File">
+            <End Role="File" EntitySet="File" />
+            <End Role="WordEntry" EntitySet="WordEntry" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WordEntry_Word" Association="Self.FK_WordEntry_Word">
+            <End Role="Word" EntitySet="Word" />
+            <End Role="WordEntry" EntitySet="WordEntry" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FolderScanModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="WordEntries" Relationship="FolderScanModel.FK_WordEntry_File" FromRole="File" ToRole="WordEntry" />
+        </EntityType>
+        <EntityContainer Name="FolderScanEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Files" EntityType="Self.File" />
+          <EntitySet Name="Words" EntityType="FolderScanModel.Word" />
+          <EntitySet Name="WordEntries" EntityType="FolderScanModel.WordEntry" />
+          <AssociationSet Name="FK_WordEntry_File" Association="FolderScanModel.FK_WordEntry_File">
+            <End Role="File" EntitySet="Files" />
+            <End Role="WordEntry" EntitySet="WordEntries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WordEntry_Word" Association="FolderScanModel.FK_WordEntry_Word">
+            <End Role="Word" EntitySet="Words" />
+            <End Role="WordEntry" EntitySet="WordEntries" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Word">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WordEntries" Relationship="FolderScanModel.FK_WordEntry_Word" FromRole="Word" ToRole="WordEntry" />
+        </EntityType>
+        <EntityType Name="WordEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileId" Type="Int32" Nullable="false" />
+          <Property Name="WordId" Type="Int32" Nullable="false" />
+          <Property Name="WordIndex" Type="Int32" Nullable="false" />
+          <Property Name="WordLine" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="File" Relationship="FolderScanModel.FK_WordEntry_File" FromRole="WordEntry" ToRole="File" />
+          <NavigationProperty Name="Word" Relationship="FolderScanModel.FK_WordEntry_Word" FromRole="WordEntry" ToRole="Word" />
+        </EntityType>
+        <Association Name="FK_WordEntry_File">
+          <End Type="FolderScanModel.File" Role="File" Multiplicity="1" />
+          <End Type="FolderScanModel.WordEntry" Role="WordEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WordEntry">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WordEntry_Word">
+          <End Type="FolderScanModel.Word" Role="Word" Multiplicity="1" />
+          <End Type="FolderScanModel.WordEntry" Role="WordEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Word">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WordEntry">
+              <PropertyRef Name="WordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FolderScanModelStoreContainer" CdmEntityContainer="FolderScanEntities">
+          <EntitySetMapping Name="Files">
+            <EntityTypeMapping TypeName="FolderScanModel.File">
+              <MappingFragment StoreEntitySet="File">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Words">
+            <EntityTypeMapping TypeName="FolderScanModel.Word">
+              <MappingFragment StoreEntitySet="Word">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WordEntries">
+            <EntityTypeMapping TypeName="FolderScanModel.WordEntry">
+              <MappingFragment StoreEntitySet="WordEntry">
+                <ScalarProperty Name="WordLine" ColumnName="WordLine" />
+                <ScalarProperty Name="WordIndex" ColumnName="WordIndex" />
+                <ScalarProperty Name="WordId" ColumnName="WordId" />
+                <ScalarProperty Name="FileId" ColumnName="FileId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

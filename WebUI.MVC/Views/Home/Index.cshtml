@@ -1,0 +1,54 @@
+﻿@model WebUI.MVC.ViewModels.WordsViewModel
+
+@{
+	ViewBag.Title = "Words list";
+}
+
+<div class="panel panel-default top-container">
+	<div class="panel-body">
+		<div class="row header">
+			<div class="col-sm-6">Name</div>
+			<div class="col-sm-2">Count</div>
+			<div class="col-sm-2">Line</div>
+			<div class="col-sm-2">Position</div>
+		</div>
+		@for (var idx = 0; idx < Model.Words.Count(); idx++)
+		{
+			<div class="row trow">
+				<div class="col-sm-6 expandable" onclick="showNest('@Model.Words[idx].Name')">
+					@Model.Words[idx].Name
+				</div>
+				<div class="col-sm-2">@Model.Words[idx].Occurences.Count()</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-2"></div>
+			</div>
+
+			@Html.Partial("_FilesListModel", Model.Words[idx])
+		}
+
+	</div>
+</div>
+
+<div class="pager">
+	@Html.Pager(Model.PageSize, Model.PageNumber, Model.TotalCount)
+</div>
+
+@section scripts
+{
+	<script>
+		function showNest(name) {
+			$(".nest").addClass("hide");
+			$(".sub").addClass("hide");
+			$(".nest." + name).toggleClass("hide");
+		}
+
+		function showSub(name) {
+			$(".sub").addClass("hide");
+			$(".sub." + name).toggleClass("hide");
+		}
+		
+	</script>
+}
+
+
+
